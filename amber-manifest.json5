@@ -22,4 +22,5 @@
   provides: {
     a2a: { kind: "a2a", endpoint: "a2a" },
   },
+  exports: { a2a: "a2a" },
 }
