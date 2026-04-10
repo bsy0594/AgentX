@@ -12,6 +12,7 @@
 
   program: {
     image: "ghcr.io/bsy0594/agentx:latest",
+    entrypoint: "bash start_participant.sh --host 0.0.0.0 --port 9009",
     env: {
       OPENAI_API_KEY: "${config.openai_api_key}",
       OPENAI_MODEL: "o4-mini",
