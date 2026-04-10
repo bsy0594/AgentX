@@ -1,0 +1,25 @@
+{
+  manifest_version: "0.1.0",
+  program: {
+    image: "ghcr.io/bsy0594/agentx:latest",
+    env: {
+      OPENAI_API_KEY: "${config.openai_api_key}",
+      OPENAI_MODEL: "o4-mini",
+    },
+    network: {
+      endpoints: [
+        { name: "a2a", port: 9009 },
+      ],
+    },
+  },
+  config_schema: {
+    type: "object",
+    properties: {
+      openai_api_key: { type: "string", secret: true },
+    },
+    required: ["openai_api_key"],
+  },
+  provides: {
+    a2a: { kind: "a2a", endpoint: "a2a" },
+  },
+}

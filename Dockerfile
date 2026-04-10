@@ -15,4 +15,5 @@ RUN chmod +x start_participant.sh
 
 EXPOSE 8000 8001
 
-ENTRYPOINT ["bash", "start_participant.sh", "0.0.0.0"]
+ENTRYPOINT ["bash", "start_participant.sh"]
+CMD ["--host", "0.0.0.0", "--port", "9009"]
