@@ -46,6 +46,18 @@ Rules:
 - Handle errors gracefully: catch exceptions during training and print diagnostics.
 - Keep stdout concise — only print what is needed to debug.
 - NEVER hardcode predictions or labels from memory — always train a real model.
+
+CRITICAL ANTI-LEAKAGE RULES — violating these inflates CV_SCORE but destroys leaderboard score:
+- NEVER concatenate train and test before fitting any transformer, scaler, or encoder.
+- ALWAYS fit all preprocessing (SimpleImputer, OrdinalEncoder, StandardScaler, etc.) \
+on TRAIN data only, then call .transform() on test separately.
+- For target encoding or any target-based feature: compute it using out-of-fold (OOF) \
+estimates inside the CV loop only — never fit on the full training set at once.
+- Aggregation statistics (group means, stds, counts) must be computed on the TRAIN \
+fold only, then joined to the validation/test fold.
+- Cross-validation must use ONLY training data rows.  test.csv has NO target column \
+on the real leaderboard.
+- Do NOT use test.csv rows in any fit() call, ever.
 """
 
 INITIAL_PROMPT = """\
@@ -83,6 +95,11 @@ updated Python script.  Do not remove the CV_SCORE print.  Do not remove the \
 submission.csv save.
 
 Focus on: {improvement_hint}
+
+REMINDER — anti-leakage rules still apply:
+- Fit all preprocessors on train fold only, transform test separately.
+- No train+test concat before fitting.
+- Target encoding must use OOF only.
 """
 
 IMPROVEMENT_HINTS = [

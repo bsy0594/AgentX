@@ -46,8 +46,9 @@ class Interpreter:
 
         start = time.time()
         try:
-            proc = subprocess.run(
-                ["python", str(script)],
+            import sys as _sys
+        proc = subprocess.run(
+                [_sys.executable, str(script)],
                 capture_output=True,
                 text=True,
                 timeout=self.timeout,
