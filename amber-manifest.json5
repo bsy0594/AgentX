@@ -1,5 +1,15 @@
 {
   manifest_version: "0.1.0",
+
+  config_schema: {
+    type: "object",
+    properties: {
+      openai_api_key: { type: "string", secret: true },
+    },
+    required: ["openai_api_key"],
+    additionalProperties: false,
+  },
+
   program: {
     image: "ghcr.io/bsy0594/agentx:latest",
     env: {
@@ -8,19 +18,21 @@
     },
     network: {
       endpoints: [
-        { name: "a2a", port: 9009 },
+        { name: "a2a_endpoint", port: 9009 },
       ],
     },
   },
-  config_schema: {
-    type: "object",
-    properties: {
-      openai_api_key: { type: "string", secret: true },
-    },
-    required: ["openai_api_key"],
-  },
+
   provides: {
-    a2a: { kind: "a2a", endpoint: "a2a" },
+    a2a: { kind: "a2a", endpoint: "a2a_endpoint" },
   },
+
   exports: { a2a: "a2a" },
+
+  metadata: {
+    assessment_config: {
+      competition_id: "spaceship-titanic",
+    },
+    participant_roles: ["agent"],
+  },
 }
