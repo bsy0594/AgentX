@@ -12,6 +12,4 @@ jobs:
     with:
       leaderboard_repo: 'RDI-Foundation/agentbeats-leaderboard-template'
       scenario_file: 'scenario.toml'
-    secrets:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    secrets: inherit
