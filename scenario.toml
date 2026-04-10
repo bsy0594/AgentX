@@ -1,0 +1,11 @@
+[green_agent]
+endpoint = "http://127.0.0.1:9009"
+cmd = "bash -c 'cd src/evaluator && python server.py --host 127.0.0.1 --port 9009'"
+
+[[participants]]
+role = "agent"
+endpoint = "http://127.0.0.1:8000"
+cmd = "bash start_participant.sh"
+
+[config]
+competition_id = "spaceship-titanic"
